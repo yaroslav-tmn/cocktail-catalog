@@ -1,24 +1,16 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { Col, Container, Row } from 'react-bootstrap';
+import Search from './components/Search';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Row className='mx-5 my-2 border border-1 rounded-3 MyTitle'>
+        <Col className='h1 text-center'>Cocktail Catalog</Col>
+      </Row>
+      <Search />
+    </Container>
   );
 }
 
