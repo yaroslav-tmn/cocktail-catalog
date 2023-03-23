@@ -1,10 +1,8 @@
 import { Col, Row, FormSelect } from 'react-bootstrap';
 
-//<Col xxl='auto' xl='auto' lg='auto' md='auto' xs sm>
-
 export default function Search() {
   return (
-    <Row className='mx-5 p-3 justify-content-start border border-1 rounded-3 align-items-center d-flex flex-row flex-wrap'>
+    <Row className='mx-3 mx-xs-1 p-3 justify-content-start border border-1 rounded-3 align-items-center d-flex flex-row flex-wrap'>
       <Col xs='auto' className='p-1'>
         Search by:
       </Col>
