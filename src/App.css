@@ -1,9 +1,9 @@
-.second-col {
-  padding-right: 0;
+.rightcol {
+  padding-right: 0 !important;
 }
 
 @media (max-width: 767.98px) {
-  .second-col {
-    padding-left: 0;
+  .rightcol {
+    padding-left: 0 !important;
   }
 }

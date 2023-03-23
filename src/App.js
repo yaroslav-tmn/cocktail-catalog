@@ -31,7 +31,7 @@ function App() {
       <Search />
       <Row className='mx-3 my-2'>
         <CocktailCard cocktailImage={image} cocktailName={cocktailName} />
-        <Col className='second-col'>
+        <Col className='rightcol'>
           <CocktailIngrds ingredientList={ingredients} />
           <CocktailRecipe textRecipe={recipe} />
         </Col>
