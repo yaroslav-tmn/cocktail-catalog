@@ -1,4 +1,5 @@
-import { Card, Col, ListGroup } from 'react-bootstrap';
+import { Card, ListGroup } from 'react-bootstrap';
+import './CocktailIngrds.css';
 
 export default function CocktailIngrds(props) {
   const ingredientsList = props.ingredientList.map((ingredient, index) => (
@@ -6,18 +7,16 @@ export default function CocktailIngrds(props) {
   ));
 
   return (
-    <Col style={{ paddingRight: '0' }}>
-      <Card>
-        <Card.Header
-          style={{
-            backgroundColor: '#c2dbfe',
-            fontWeight: 'bold',
-          }}
-        >
-          Ingredients
-        </Card.Header>
-        <ListGroup variant='flush'>{ingredientsList}</ListGroup>
-      </Card>
-    </Col>
+    <Card className='ingredients-card'>
+      <Card.Header
+        style={{
+          backgroundColor: '#c2dbfe',
+          fontWeight: 'bold',
+        }}
+      >
+        Ingredients
+      </Card.Header>
+      <ListGroup variant='flush'>{ingredientsList}</ListGroup>
+    </Card>
   );
 }
