@@ -10,8 +10,10 @@ export default function Search() {
   async function fetchSuggestions() {
     if (query !== '' && selectedOption === '1') {
       const data = await getCocktailByName(query);
-      setSuggestions(data.drinks.map((drink) => drink.strDrink));
-      console.log(suggestions);
+      if (data.drinks) {
+        setSuggestions(data.drinks.map((drink) => drink.strDrink));
+        console.log(suggestions);
+      }
     }
   }
 
