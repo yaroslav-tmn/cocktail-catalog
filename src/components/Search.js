@@ -7,15 +7,16 @@ export default function Search() {
   const [selectedOption, setSelectedOption] = useState('1');
   const [suggestions, setSuggestions] = useState([]);
 
+  async function fetchSuggestions() {
+    if (query !== '' && selectedOption === '1') {
+      const data = await getCocktailByName(query);
+      setSuggestions(data.drinks.map((drink) => drink.strDrink));
+      console.log(suggestions);
+    }
+  }
+
   useEffect(() => {
     const timeBeforeRequest = setTimeout(() => {
-      async function fetchSuggestions() {
-        if (query !== '' && selectedOption === '1') {
-          const data = await getCocktailByName(query);
-          setSuggestions(data.drinks.map((drink) => drink.strDrink));
-          console.log(suggestions);
-        }
-      }
       fetchSuggestions();
     }, 500);
     return () => clearTimeout(timeBeforeRequest);
