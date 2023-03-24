@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Col, Row, FormSelect } from 'react-bootstrap';
 import { getCocktailByName } from '../functions/getCocktailByName';
+import Autocomplete from './Autocomplete';
 
 export default function Search() {
   const [query, setQuery] = useState('');
   const [selectedOption, setSelectedOption] = useState('1');
-  const [suggestions, setSuggestions] = useState([]);
+  const [dataDrinks, setDataDrinks] = useState([]);
 
   async function fetchSuggestions() {
     if (query !== '' && selectedOption === '1') {
       const data = await getCocktailByName(query);
       if (data.drinks) {
-        setSuggestions(data.drinks.map((drink) => drink.strDrink));
-        console.log(suggestions);
+        setDataDrinks(data.drinks);
       }
     }
   }
@@ -38,7 +38,7 @@ export default function Search() {
           <option value='2'>ingredient</option>
         </FormSelect>
       </Col>
-      <Col xxl md className='p-1'>
+      <Col xxl md className='p-1' style={{ position: 'relative' }}>
         <input
           className='form-control'
           value={query}
@@ -46,6 +46,7 @@ export default function Search() {
             setQuery(event.target.value);
           }}
         ></input>
+        {dataDrinks.length > 0 && <Autocomplete dataDrinks={dataDrinks} />}
       </Col>
     </Row>
   );
