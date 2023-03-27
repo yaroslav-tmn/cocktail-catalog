@@ -15,20 +15,24 @@ function App() {
   const [ingredients, setIngredients] = useState([]);
   const [recipe, setRecipe] = useState('');
 
+  function showCocktail(data) {
+    setImage(data.drinks[0].strDrinkThumb);
+    setCocktailName(data.drinks[0].strDrink);
+    setRecipe(data.drinks[0].strInstructions);
+    setIngredients(getIngredients(data.drinks[0]));
+  }
+
   useEffect(() => {
     (async () => {
       const data = await getRandomCocktail();
-      setImage(data.drinks[0].strDrinkThumb);
-      setCocktailName(data.drinks[0].strDrink);
-      setRecipe(data.drinks[0].strInstructions);
-      setIngredients(getIngredients(data.drinks[0]));
+      showCocktail(data);
     })();
   }, []);
 
   return (
     <Container style={{ minWidth: '280px' }}>
       <AppTitle />
-      <Search />
+      <Search drinkToShow={showCocktail} />
       <Row className='mx-3 my-2'>
         <CocktailCard cocktailImage={image} cocktailName={cocktailName} />
         <Col className='rightcol'>
