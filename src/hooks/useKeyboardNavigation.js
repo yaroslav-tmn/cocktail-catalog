@@ -29,7 +29,7 @@ export const useKeyboardsNavigation = (items, onSelectItem) => {
       }
 
       if (event.key === 'Enter') {
-        getDrinkByName(items[activeIndex].drinkId);
+        getDrinkByName(items[activeIndex].idDrink);
       }
     };
 

@@ -1,0 +1,14 @@
+.ingredient-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding-left: 0 !important;
+}
+
+.ingredient-item {
+  padding: 2px 10px;
+  background-color: #efc8a9;
+  margin: 5px 10px 5px 0;
+  border-radius: 10px;
+  cursor: pointer;
+}

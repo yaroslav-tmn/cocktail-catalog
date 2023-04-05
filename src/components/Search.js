@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Col, Row, FormSelect } from 'react-bootstrap';
 import { getCocktailByName } from '../functions/getCocktailByName';
 import Autocomplete from './Autocomplete';
+import SelectedIngrids from './SelectedIngrids';
 
 export default function Search(props) {
   const [query, setQuery] = useState('');
@@ -9,6 +10,7 @@ export default function Search(props) {
   const [dataDrinks, setDataDrinks] = useState([]);
   const [autocompIsVisible, setAutocompIsVisible] = useState(false);
   const [blockAutocomp, setBlockAutocomp] = useState(false);
+  const [selectedIngredients, setselectedIngredients] = useState([]);
 
   useEffect(() => {
     function clickOutsideAutocompHandler(event) {
@@ -28,23 +30,32 @@ export default function Search(props) {
   useEffect(() => {
     const timeBeforeRequest = setTimeout(() => {
       async function fetchSuggestions() {
-        if (query !== '' && selectedOption === '1' && !blockAutocomp) {
-          const data = await getCocktailByName(query);
-          if (data.drinks) {
-            setDataDrinks(data.drinks);
-            setAutocompIsVisible(true);
+        if (selectedOption === '1') {
+          props.ingridListToShow(false);
+          if (query !== '' && !blockAutocomp) {
+            const data = await getCocktailByName(query);
+            if (data.drinks) {
+              setDataDrinks(data.drinks);
+              setAutocompIsVisible(true);
+            }
           }
+        }
+        if (selectedOption === '2') {
+          setQuery('');
+          props.ingridListToShow(true);
         }
       }
       fetchSuggestions();
       setBlockAutocomp(false);
     }, 500);
     return () => clearTimeout(timeBeforeRequest);
-  }, [query, selectedOption]);
+  }, [query, selectedOption, props]);
 
   const onSelect = (data) => {
     setBlockAutocomp(true);
-    setQuery(data.drinks[0].strDrink);
+    if (selectedOption === '1') {
+      setQuery(data.drinks[0].strDrink);
+    }
     setAutocompIsVisible(false);
     props.drinkToShow(data);
   };
@@ -64,15 +75,20 @@ export default function Search(props) {
         </FormSelect>
       </Col>
       <Col xxl md className='p-1' style={{ position: 'relative' }}>
-        <input
-          className='form-control'
-          value={query}
-          onChange={(event) => {
-            setQuery(event.target.value);
-          }}
-        ></input>
+        {selectedOption === '1' && (
+          <input
+            className='form-control'
+            value={query}
+            onChange={(event) => {
+              setQuery(event.target.value);
+            }}
+          ></input>
+        )}
         {dataDrinks.length > 0 && autocompIsVisible && (
           <Autocomplete dataDrinks={dataDrinks} onSelect={onSelect} />
+        )}
+        {selectedOption === '2' && (
+          <SelectedIngrids selectedItems={selectedIngredients} />
         )}
       </Col>
     </Row>
